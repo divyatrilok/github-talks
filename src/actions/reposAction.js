@@ -8,7 +8,9 @@ export const reposAction = () => (dispatch, getState) => {
     }
     dispatch({
         type: 'GET_REPOS',
-        payload: []
+        payload: [],
+        status: 'LOADING',
+        statusCode: 200
     })
     // var repos = `https://api.github.com/users/${state.owner}/repos?per_page=${itemsPerPage}&type=all&sort=updated&order=asc`;
     var url = `https://api.github.com/search/repositories?q=user:${state.owner}&per_page=${itemsPerPage}&type=all&sort=stargazers_count&order=desc&page=${state.page}`
@@ -16,13 +18,17 @@ export const reposAction = () => (dispatch, getState) => {
         .then((res) => {
             dispatch({
                 type: 'GET_REPOS',
-                payload: res.data
+                payload: res.data,
+                status: 'SUCCESS',
+                statusCode: 200
             })
         })
         .catch((error) => {
             dispatch({
                 type: 'GET_REPOS',
-                payload: []
+                payload: [],
+                status: "ERROR",
+                statusCode: error.response.status
             })
         })
 }

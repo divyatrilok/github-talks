@@ -15,7 +15,9 @@ export default (state = { initialState, reposDetails }, action) => {
             console.log("get repositories")
             return {
                 ...state,
-                repos: payload
+                repos: payload,
+                status: action.status,
+                statusCode: action.statusCode
             }
         case 'SET_OWNER':
             console.log("set owner")

@@ -20,6 +20,7 @@ import ReactPaginate from 'react-paginate';
 import Commits from './Commits';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Warning from './Warning'
 
 const mapStateToProps = state => ({
     ...state
@@ -40,7 +41,8 @@ const styles = {
     },
     innerWrapper: {
         'display': 'flex',
-        'flexDirection': 'column'
+        'flexDirection': 'column',
+        'minHeight': 600
     },
     cell: {
         cursor: 'pointer'
@@ -105,13 +107,16 @@ class Results extends Component {
             <div style={styles.wrapper}>
                 {
                     typeof this.props.reposReducer.repos !== "undefined"
+                    && this.props.reposReducer.status === 'ERROR' ?
+                    <Warning/> : 
+                    typeof this.props.reposReducer.repos !== "undefined"
                         && this.props.reposReducer.repos.total_count !== 0 ?
                         (<div style={styles.innerWrapper}>
                             <h2>Repositories for {this.props.reposReducer.owner} listed below</h2>
                             <Table height="600" onRowSelection={this.onRowSelection}>
                                 <TableHeader adjustForCheckbox={false} displaySelectAll={false} displayRowCheckbox={false}>
                                     <TableRow>
-                                        <TableHeaderColumn colSpan="3" tooltip="Pagination" style={{ textAlign: 'center' }}>
+                                        <TableHeaderColumn colSpan="3" tooltip="" style={{ textAlign: 'center' }}>
                                             <ReactPaginate previousLabel={"previous"}
                                                 nextLabel={"next"}
                                                 breakLabel={<a>...</a>}
@@ -124,7 +129,7 @@ class Results extends Component {
                                                 subContainerClassName={"pages pagination"}
                                                 activeClassName={"active"} />
                                         </TableHeaderColumn>
-                                        <TableHeaderColumn colSpan="1" tooltip="Filter" style={{ textAlign: 'right' }}>
+                                        <TableHeaderColumn colSpan="1" tooltip="" style={{ textAlign: 'right' }}>
                                             <DropDownMenu
                                                 value={typeof this.props.reposReducer.itemsPerPage === "undefined" ?
                                                     this.props.reposReducer.initialState.itemsPerPage :
@@ -165,12 +170,12 @@ class Results extends Component {
                                                     <TableRowColumn style={styles.cell}>{row.language}</TableRowColumn>
                                                     <TableRowColumn style={styles.cell}>{row.forks_count}</TableRowColumn>
                                                 </TableRow>)
-                                            }) : <TableRow><TableRowColumn>No repos found</TableRowColumn></TableRow>
+                                            }) : <TableRow><TableRowColumn>No Repos Found</TableRowColumn></TableRow>
                                     }
                                 </TableBody>
                             </Table>
                         </div>)
-                        : null
+                        : <p>loading</p>
                 }
                 {
                     this.props.reposReducer.reposDetails.show === true ?
