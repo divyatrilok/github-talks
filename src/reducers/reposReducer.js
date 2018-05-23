@@ -1,6 +1,6 @@
 const initialState = {
     itemsPerPage: 25,
-    owner: "divyavontimitta"
+    owner: "redux"
 }
 const reposDetails = {
     show: false,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
-import Subheader from 'material-ui/Subheader';
 
 // const mapStateToProps = state => ({
 //     ...state
@@ -33,7 +32,6 @@ class Warning extends Component {
                 onClick={this.onDialogClose}
             />,
         ];
-        const reposReducer = this.props.reposReducer;
 
         return (
             <Dialog
