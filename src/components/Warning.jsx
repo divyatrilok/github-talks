@@ -43,7 +43,7 @@ class Warning extends Component {
                 autoScrollBodyContent={true}
             >
                 <div>
-                    <p>Let's give Github a small breather and try again in a bit. Github is over loaded! </p>
+                    <p>Github has a API Rate limit and we are exceeding it. Please refresh the page of try again later!</p>
                 </div>
             </Dialog>
         )
